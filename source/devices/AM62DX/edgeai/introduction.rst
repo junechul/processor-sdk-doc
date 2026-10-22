@@ -26,7 +26,7 @@ The remaining sections cover:
 - :ref:`Model Compile and Evaluate <audioai-compile-evaluate>` — the
   x86 BYOM workflow built on ``edgeai-tidlrunner``: compile a model for the AM62D
   and evaluate accuracy on a dataset.
-- :ref:`Model Inspect <audioai-model-inspect>` — analyze the compiled subgraphs
+- :ref:`Model Inspector <audioai-model-inspector>` — analyze the compiled subgraphs
   and per-layer behavior with Model Inspector.
 - :ref:`Performance benchmark <audioai-performance>` — latency and memory
   methodology with per-model tables.
@@ -43,7 +43,7 @@ The end-to-end path is the same for a reference model or your own model:
    Evaluate <audioai-compile-evaluate>`).
 #. **Evaluate** accuracy or audio-quality metrics on a dataset.
 #. **Inspect** the compiled subgraphs and per-layer analysis (:ref:`Model
-   Inspect <audioai-model-inspect>`).
+   Inspector <audioai-model-inspector>`).
 #. **Run** on the AM62D target using the compiled artifact
    (:ref:`Audio AI Model Zoo <audioai-model-zoo>`).
 #. **Benchmark** latency and memory (:ref:`Performance <audioai-performance>`).

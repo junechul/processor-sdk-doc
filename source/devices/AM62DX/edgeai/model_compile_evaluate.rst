@@ -40,18 +40,26 @@ CLI — ``tidlrunner-cli`` — exposes the stages this section uses:
      - Imports the ONNX graph, quantizes and partitions it, and writes the
        deployable TIDL/TVM-RT artifacts.
    * - ``infer``
-     - Runs the compiled model on the x86 host (PC emulation) to check output
-       correctness before deploying to the target.
+     - Runs the compiled model on the x86 host (PC emulation), or on the AM62D
+       EVM itself, to check output correctness before deploying to the target.
    * - ``evaluate``
      - Runs the compiled model over a dataset and reports accuracy or
        speech-enhancement metrics.
    * - ``inspect``
      - One-shot compile + inference + reference comparison that emits an
-       interactive HTML analysis report (see :ref:`Model Inspect <audioai-model-inspect>`).
+       interactive HTML analysis report (see :ref:`Model Inspector <audioai-model-inspector>`).
 
 All commands are run from the repository root (``edgeai-tidlrunner/``) and take
 ``--config_path <cfg>`` pointing at the per-model YAML. The same config file is
 reused across ``compile``, ``infer``, and ``evaluate``.
+
+.. note::
+
+   ``compile``, ``infer`` and ``evaluate`` also write or refresh the Model
+   Inspector report (``work_dirs/.../inspect/modelinspector.html``) at the end
+   of the run; add ``--no_inspector`` to skip it. Running ``infer`` on the EVM
+   with ``--debug_level 2`` adds measured per-layer cycle counts to the report.
+   See :ref:`Model Inspector <audioai-model-inspector>` for details.
 
 .. _audioai-am62d-setup:
 
@@ -249,3 +257,14 @@ it simply does not offload to the DSP:
    $ tidlrunner-cli compile  --config_path $CFG
    $ tidlrunner-cli infer    --config_path $CFG
    $ tidlrunner-cli evaluate --config_path $CFG
+
+*********************
+Next: Model Inspector
+*********************
+
+To understand how a compiled model behaves — which layers run on the C7\ |tm| NPU
+and which fall back to the Arm core, how much accuracy quantization costs, and
+where the time and memory go — see :ref:`Model Inspector <audioai-model-inspector>`.
+It explains the interactive HTML report that ``compile``, ``infer`` and
+``evaluate`` generate, and how to produce the full analysis with
+``tidlrunner-cli inspect``.
